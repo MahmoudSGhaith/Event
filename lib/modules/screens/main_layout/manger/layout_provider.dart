@@ -12,6 +12,8 @@ class LayoutProvider extends ChangeNotifier {
 
   bool isLoading = false;
 
+  List<EventModel> get favoriteEvents =>
+      events.where((event) => event.isFavorite).toList();
 
   int selectedIndex = 0;
   User get user => FirebaseAuth.instance.currentUser!;
@@ -65,5 +67,21 @@ class LayoutProvider extends ChangeNotifier {
     }
     isLoading = false;
     notifyListeners();
+  }
+
+  void setSelectedIndex(int index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
+
+  Future<void> toggleFavorite(EventModel event) async {
+    final newValue = !event.isFavorite;
+    event.isFavorite = newValue;
+    notifyListeners();
+
+    await FirebaseFirestore.instance
+        .collection("events")
+        .doc(event.id)
+        .update({"isFavorite": newValue});
   }
 }

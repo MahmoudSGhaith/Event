@@ -9,6 +9,7 @@ class EventModel {
   int eventTime;
   String categoryId;
   String categoryImage;
+  bool isFavorite;
 
   EventModel({
     this.id,
@@ -18,6 +19,7 @@ class EventModel {
     required this.eventTime,
     required this.categoryId,
     required this.categoryImage,
+    this.isFavorite = false,
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class EventModel {
       eventTime: json["eventTime"],
       categoryId: json["categoryId"],
       categoryImage: json["categoryImage"],
+      isFavorite: json["isFavorite"] ?? false,
     );
   }
 
@@ -41,6 +44,7 @@ class EventModel {
       "eventTime": eventTime,
       "categoryId": categoryId,
       "categoryImage": categoryImage,
+      "isFavorite": isFavorite,
     };
   }
 }

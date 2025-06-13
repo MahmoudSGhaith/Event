@@ -26,11 +26,15 @@ class Love extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 10,
+                itemCount: provider.favoriteEvents.length,
                 itemBuilder: (context, index) {
-                return EventComponent(imagePath: AssetsManger.sports,event: provider.events[index],);
-              },),
-            )
+                  return EventComponent(
+                    imagePath: AssetsManger.sports,
+                    event: provider.favoriteEvents[index],
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),

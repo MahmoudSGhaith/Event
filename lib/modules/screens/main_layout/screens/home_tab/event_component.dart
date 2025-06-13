@@ -2,10 +2,12 @@
 import 'package:event/core/resources/extension/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/event_model/event_model.dart';
 import '../../../../../core/resources/colors/colors_manger.dart';
 import '../../../../../core/resources/styles/styles_manger.dart';
+import '../../manger/layout_provider.dart';
 
 class EventComponent extends StatelessWidget {
   final String imagePath;
@@ -76,10 +78,16 @@ class EventComponent extends StatelessWidget {
                     Theme.of(context).textTheme.titleMedium,
                   ),
                 ),
-                Icon(
-                  Icons.favorite_outline,
-                  color: ColorsManger.red,
-                  size: 30,
+                IconButton(
+                  onPressed: () {
+                    Provider.of<LayoutProvider>(context, listen: false)
+                        .toggleFavorite(event);
+                  },
+                  icon: Icon(
+                    event.isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: event.isFavorite ? ColorsManger.red : Colors.grey,
+                    size: 30,
+                  ),
                 ),
               ],
             ),
